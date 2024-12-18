@@ -1,9 +1,9 @@
 
-🚀# menu-interaction
+# 🚀 menu-interaction
 
 Uma include simples, porém eficiente, que facilita a interação com jogadores por meio de textdraw/diálogos   interativos. Ela permite personalizar opções como Skin, Título e Mensagem em um menu dinâmico e intuitivo. Atualmente na versão 1.0, futuras atualizações já estão planejadas para ampliar as funcionalidades. Espero que aproveitem e gostem!
 
-🔌## Implementação
+## 🔌 Implementação
 
 1. Baixe o (https://github.com/Jailtonvitor/Include-interaction)
 2. Coloque o arquivo na sua pasta `include`.
@@ -13,11 +13,11 @@ Uma include simples, porém eficiente, que facilita a interação com jogadores 
 ```
 4. Install [YSF](https://github.com/pawn-lang/YSI-Includes).
 
-⚙## Funções
+## ⚙ Funções
 
 CreateMenuInteraction(playerid, idmenu, titulomenu, mensagem, skin)
 
-♟## Exemplo
+## ♟ Exemplo
 
 ```pawn
 CMD:menu(playerid)
