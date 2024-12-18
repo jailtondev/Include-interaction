@@ -5,7 +5,7 @@ Uma include simples, porém eficiente, que facilita a interação com jogadores 
 
 ## 🔌 Implementação
 
-1. Baixe o (https://github.com/Jailtonvitor/Include-interaction)
+1. Baixe o (https://github.com/jailtondev/Include-interaction)
 2. Coloque o arquivo na sua pasta `include`.
 3. Insira esta linha no sua gamemode inicial.
 ```pawn
