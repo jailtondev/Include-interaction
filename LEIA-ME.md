@@ -1,4 +1,3 @@
-
 # 🚀 menu-interaction
 
 Uma include simples, porém eficiente, que facilita a interação com jogadores por meio de textdraw/diálogos   interativos. Ela permite personalizar opções como Skin, Título e Mensagem em um menu dinâmico e intuitivo. 
