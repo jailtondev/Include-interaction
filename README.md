@@ -2,7 +2,7 @@
 A simple yet efficient include that facilitates player interaction through interactive textdraw/dialogs. It allows customization of options like Skin, Title, and Message in a dynamic and intuitive menu.
 
 ## 🔄 Update
-Now with an improved design, support for customizing the "Yes" and "No" text, and no need for the YSI library. Bugs fixed.
+Now with an improved design, support for customizing the "Yes" and "No" text and no need for the YSI library. Bugs fixed, now we have support for open-mp.
 
 ## 📅 Version
 1.1
