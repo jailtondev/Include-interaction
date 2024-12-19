@@ -5,6 +5,7 @@ A simple yet efficient include that facilitates player interaction through inter
 Now with an improved design, support for customizing the "Yes" and "No" text and no need for the YSI library. Bugs fixed, now we have support for open-mp.
 
 ## 📅 Version
+
 1.1
 
 ## 🔌 Implementation
