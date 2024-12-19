@@ -5,7 +5,7 @@ Uma include simples, porém eficiente, que facilita a interação com jogadores 
 
 ## 🔄 Atualização
 
-Agora com um design melhorado, suporte para personalizar os textos de "Sim" e "Não", e sem necessidade da biblioteca YSI. Bugs corrigidos.
+Agora com um design melhorado, suporte para personalizar o texto "Sim" e "Não" e sem necessidade da biblioteca YSI. Bugs corrigidos, agora temos suporte para open-mp.
 
 ## 📅 Versão
 
