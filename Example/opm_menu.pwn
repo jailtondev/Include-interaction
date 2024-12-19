@@ -1,5 +1,5 @@
 #include <a_samp>
-#include <menu-interaction>
+#include <opm_menu-interaction>
 #include <zcmd>
 
 main()
@@ -8,13 +8,11 @@ main()
 }
 
 
-
 CMD:menu(playerid)
 {
     CreateMenuInteraction(playerid, 1, "Arthur", "Opa meu amigo, Deseja mesmo vender seu veiculo?", 268, "Confirmar", "Cancelar");
-    return 1;
+    return true;
 }
-
 
 public OnPlayerMenuInteraction(playerid, idmenu)
 {
@@ -22,5 +20,5 @@ public OnPlayerMenuInteraction(playerid, idmenu)
     {
         // Confirmar
     }
-    return 1;
+    return true;
 }

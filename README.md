@@ -1,67 +1,55 @@
-
 # 🚀 menu-interaction
+A simple yet efficient include that facilitates player interaction through interactive textdraw/dialogs. It allows customization of options like Skin, Title, and Message in a dynamic and intuitive menu.
 
-Uma include simples, porém eficiente, que facilita a interação com jogadores por meio de textdraw/diálogos   interativos. Ela permite personalizar opções como Skin, Título e Mensagem em um menu dinâmico e intuitivo. Atualmente na versão 1.0, futuras atualizações já estão planejadas para ampliar as funcionalidades. Espero que aproveitem e gostem!
+## 🔄 Update
+Now with an improved design, support for customizing the "Yes" and "No" text, and no need for the YSI library. Bugs fixed.
 
-## 🔌 Implementação
+## 📅 Version
+1.1
 
-1. Baixe o (https://github.com/jailtondev/Include-interaction)
-2. Coloque o arquivo na sua pasta `include`.
-3. Insira esta linha no sua gamemode inicial.
+## 🔌 Implementation
+
+1. Download from (https://github.com/Jailtonvitor/Include-interaction.git)
+2. Place the file in your include folder.
+3. Add this line to your initial gamemode.
+
 ```pawn
 #include <menu-interaction>
 ```
-4. Install [YSF](https://github.com/pawn-lang/YSI-Includes).
 
-## ⚙ Funções
-
-CreateMenuInteraction(playerid, idmenu, titulomenu, mensagem, skin)
-
-## ♟ Exemplo
+## ⚙ Functions
 
 ```pawn
+
+CreateMenuInteraction(playerid, idmenu, const titulomenu[], const mensagemmenu[], skin, const opcao1[] = "Select", const opcao2[] = "Cancel")
+
+```
+## ♟ Example
+
+```pawn
+
 CMD:menu(playerid)
 {
-    CreateMenuInteraction(playerid, 1, "Arthur", "Opa meu amigo, Deseja mesmo vender seu veiculo?", 268);
-    return 1;
-}
-
-CMD:menu2(playerid)
-{
-    CreateMenuInteraction(playerid, 2, "Jailton", "Ola, Deseja pegar o emprego de servente?", 2);
+    CreateMenuInteraction(playerid, 1, "Arthur", "Hey my friend, do you really want to sell your vehicle?", 268, "Confirm", "Cancel");
     return 1;
 }
 
 
-public OnPlayerClickTextDraw(playerid, Text:clickedid)
+public OnPlayerMenuInteraction(playerid, idmenu)
 {
-    if(clickedid == Menuinteracao[6]) //Sim
-    { 
-        if(MenuTime[playerid] != 0)
-        { 
-            if(MenuInt[playerid] == 0) return 1;
-
-            if(MenuInt[playerid] == 1)
-            {
-                // Funcão Vender veiculo
-            } 
-            
-            if(MenuInt[playerid] == 2)
-            {
-                // Funcão Aceitar emprego
-            }
-        }
+    if(idmenu == 1)
+    {
+        // Confirm
     }
     return 1;
 }
 
 ```
 
-## Imagem
 
-https://imgur.com/a/hDCSqnd
+## Image
+https://imgur.com/uOgRVNC
 
-## Creditos
-
+## Credits
 @jailtondev
 https://discord.gg/t3pZPUkPJ5
