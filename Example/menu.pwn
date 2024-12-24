@@ -11,16 +11,19 @@ main()
 
 CMD:menu(playerid)
 {
-    CreateMenuInteraction(playerid, 1, "Arthur", "Opa meu amigo, Deseja mesmo vender seu veiculo?", 268, "Confirmar", "Cancelar");
+    CreateMenuInteraction(playerid, 1, "Arthur", "Hey my friend, do you really want to sell your vehicle?", 268, "Confirm", "Cancel");
     return 1;
 }
 
-
-public OnPlayerMenuInteraction(playerid, idmenu)
+public OnPlayerMenuInteraction(playerid, menuid, bool:response)
 {
-    if(idmenu == 1)
+    if(menuid == 1)
     {
-        // Confirmar
+        if(response) {
+            SendClientMessage(playerid, -1, "Sim");
+        } else {
+            SendClientMessage(playerid, -1, "Nao");
+        }
     }
     return 1;
 }

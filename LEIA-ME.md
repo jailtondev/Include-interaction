@@ -1,14 +1,15 @@
+
 # 🚀 menu-interaction
 
 Uma include simples, porém eficiente, que facilita a interação com jogadores por meio de textdraw/diálogos   interativos. Ela permite personalizar opções como Skin, Título e Mensagem em um menu dinâmico e intuitivo. 
 
 ## 🔄 Atualização
 
-Agora com um design melhorado, suporte para personalizar o texto "Sim" e "Não" e sem necessidade da biblioteca YSI. Bugs corrigidos, agora temos suporte para open-mp.
+Código melhorado.
 
 ## 📅 Versão
 
-1.1
+1.2
 
 ## 🔌 Implementação
 
@@ -34,15 +35,18 @@ CMD:menu(playerid)
 }
 
 
-public OnPlayerMenuInteraction(playerid, idmenu)
+public OnPlayerMenuInteraction(playerid, menuid, bool:response)
 {
-    if(idmenu == 1)
+    if(menuid == 1)
     {
-        // Confirmar
+        if(response) {
+            SendClientMessage(playerid, -1, "Sim");
+        } else {
+            SendClientMessage(playerid, -1, "Nao");
+        }
     }
     return 1;
 }
-
 ```
 
 ## Imagem
@@ -53,3 +57,7 @@ https://imgur.com/uOgRVNC
 
 @jailtondev
 https://discord.gg/t3pZPUkPJ5
+
+## Contribuidores
+@.ortex
+@guil2k7 

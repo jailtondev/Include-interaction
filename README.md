@@ -1,12 +1,14 @@
 # 🚀 menu-interaction
+
 A simple yet efficient include that facilitates player interaction through interactive textdraw/dialogs. It allows customization of options like Skin, Title, and Message in a dynamic and intuitive menu.
 
 ## 🔄 Update
-Now with an improved design, support for customizing the "Yes" and "No" text and no need for the YSI library. Bugs fixed, now we have support for open-mp.
+
+Improved code.
 
 ## 📅 Version
 
-1.1
+1.2
 
 ## 🔌 Implementation
 
@@ -35,12 +37,15 @@ CMD:menu(playerid)
     return 1;
 }
 
-
-public OnPlayerMenuInteraction(playerid, idmenu)
+public OnPlayerMenuInteraction(playerid, menuid, bool:response)
 {
-    if(idmenu == 1)
+    if(menuid == 1)
     {
-        // Confirm
+        if(response) {
+            SendClientMessage(playerid, -1, "Yes");
+        } else {
+            SendClientMessage(playerid, -1, "No");
+        }
     }
     return 1;
 }
@@ -49,8 +54,15 @@ public OnPlayerMenuInteraction(playerid, idmenu)
 
 
 ## Image
+
 https://imgur.com/uOgRVNC
 
 ## Credits
+
 @jailtondev
 https://discord.gg/t3pZPUkPJ5
+
+
+## Contributors
+@.ortex
+@guil2k7 

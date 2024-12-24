@@ -1,14 +1,12 @@
+#include <a_samp>
 
-#include "a_samp"
+static Text:MenuInteraction[8];
+static PlayerText:MenuInteractionPl[MAX_PLAYERS][5];
 
+static MenuInt[MAX_PLAYERS];
+static MenuTime[MAX_PLAYERS];
 
-new Text: MenuInteraction[8];
-new PlayerText: MenuInteractionPl[MAX_PLAYERS][5];
-
-new MenuInt[MAX_PLAYERS];
-new MenuTime[MAX_PLAYERS];
-
-forward OnPlayerMenuInteraction(playerid, idmenu);
+forward OnPlayerMenuInteraction(playerid, menuid, bool:response);
 
 /*
 
@@ -22,6 +20,7 @@ forward OnPlayerMenuInteraction(playerid, idmenu);
 
 
 */
+
 public OnGameModeInit()
 {
     MenuInteraction[0] = TextDrawCreate(496.000, 198.000, "LD_SPAC:white");
@@ -132,48 +131,22 @@ public OnGameModeInit()
     return true;
 }
 
-#if defined _ALS_OnGameModeInit
-  #undef OnGameModeInit
-#else
-  #define _ALS_OnGameModeInit
-#endif
-#define OnGameModeInit HOOK_OnGameModeInit
-#if defined HOOK_OnGameModeInit
-  forward OnGameModeInit();
-#endif
-
-
 public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
-    if(clickedid == MenuInteraction[6]) //opcao1
-    { 
-        if(MenuTime[playerid] != 0)
-        { 
-            if(MenuInt[playerid] == 0) return 1;
-            OnPlayerMenuInteraction(playerid, MenuInt[playerid]);
-            HideMenu(playerid);
-        }
-    }
-    if (clickedid == MenuInteraction[7]) //opcao2
+    if(clickedid == INVALID_TEXT_DRAW)
     {
-        if (MenuTime[playerid] != 0)
-        {
-            if (MenuInt[playerid] == 0) return 1;
+        HideMenu(playerid);
+    } else
+    if(clickedid == MenuInteraction[6] || clickedid == MenuInteraction[7]) //opcao1
+    { 
+        if(MenuInt[playerid] != 0)
+        { 
+            CallLocalFunction("OnPlayerMenuInteraction", "iii", playerid, MenuInt[playerid], clickedid == MenuInteraction[6] ? true : false);
             HideMenu(playerid);
         }
     }
     return true;
 }
-
-#if defined _ALS_OnPlayerClickTextDraw
-  #undef OnPlayerClickTextDraw
-#else
-  #define _ALS_OnPlayerClickTextDraw
-#endif
-#define OnPlayerClickTextDraw HOOK_OnPlayerClickTextDraw
-#if defined HOOK_OnPlayerClickTextDraw
-  forward OnPlayerClickTextDraw(playerid, Text:clickedid);
-#endif
 
 forward HideMenu(playerid);
 public HideMenu(playerid)
@@ -183,17 +156,12 @@ public HideMenu(playerid)
         KillTimer(MenuTime[playerid]);
         MenuTime[playerid] = 0;
         CancelSelectTextDraw(playerid);
-        for(new t; t < 8; t++)
+        for(new i; i < 8; i++)
         {
-            TextDrawHideForPlayer(playerid, MenuInteraction[t]);
-        }
-        for(new t; t < 5; t++)
-        {
-            PlayerTextDrawHide(playerid, MenuInteractionPl[playerid][t]);
-            PlayerTextDrawDestroy(playerid, MenuInteractionPl[playerid][t]);
+            if(i < 5) PlayerTextDrawHide(playerid, MenuInteractionPl[playerid][i]);
+            TextDrawHideForPlayer(playerid, MenuInteraction[i]);
         }
     }
-    return 1;
 } 
 
 
@@ -212,25 +180,23 @@ public HideMenu(playerid)
 stock CreateMenuInteraction(playerid, idmenu, const titulomenu[], const mensagemmenu[], skin, const opcao1[] = "Selecionar", const opcao2[] = "Cancelar")
 {
     CreateTextdrawManu(playerid, opcao1, opcao2);
-    SelectTextDraw(playerid, -1);
-    MenuInt[playerid] = idmenu;
+
     PlayerTextDrawSetString(playerid, MenuInteractionPl[playerid][2], titulomenu);
     PlayerTextDrawSetString(playerid, MenuInteractionPl[playerid][3], mensagemmenu);
     PlayerTextDrawSetPreviewModel(playerid, MenuInteractionPl[playerid][4], skin);
     MenuTime[playerid] = SetTimerEx("HideMenu", 15000, false, "i", playerid);
-    for(new t; t < 8; t++)
+
+    SelectTextDraw(playerid, -1);
+    MenuInt[playerid] = idmenu;
+
+    for(new i; i < 8; i++)
     {
-        TextDrawShowForPlayer(playerid, MenuInteraction[t]);
+        if(i < 5) PlayerTextDrawShow(playerid, MenuInteractionPl[playerid][i]);
+        TextDrawShowForPlayer(playerid, MenuInteraction[i]);
     }
-    for(new t; t < 5; t++)
-    {
-        PlayerTextDrawShow(playerid, MenuInteractionPl[playerid][t]);
-    }
-    return 1;
 }
 
-
-stock CreateTextdrawManu(playerid, const opcao1[], const opcao2[])
+static stock CreateTextdrawManu(playerid, const opcao1[], const opcao2[])
 {
     MenuInteractionPl[playerid][0] = CreatePlayerTextDraw(playerid, 404.000, 282.000, opcao1);
     PlayerTextDrawLetterSize(playerid, MenuInteractionPl[playerid][0], 0.147, 0.799);
@@ -289,5 +255,42 @@ stock CreateTextdrawManu(playerid, const opcao1[], const opcao2[])
     PlayerTextDrawSetPreviewModel(playerid, MenuInteractionPl[playerid][4], 5);
     PlayerTextDrawSetPreviewRot(playerid, MenuInteractionPl[playerid][4], -10.000, 0.000, -18.000, 1.000);
     PlayerTextDrawSetPreviewVehCol(playerid, MenuInteractionPl[playerid][4], 1, 1);
-    return 1;
 }
+
+/*
+
+                    ooo        ooooo       .o.         .oooooo.   ooooooooo.     .oooooo.    .oooooo..o 
+                    `88.       .888'      .888.       d8P'  `Y8b  `888   `Y88.  d8P'  `Y8b  d8P'    `Y8 
+                    888b     d'888      .8"888.     888           888   .d88' 888      888 Y88bo.      
+                    8 Y88. .P  888     .8' `888.    888           888ooo88P'  888      888  `"Y8888o.  
+                    8  `888'   888    .88ooo8888.   888           888`88b.    888      888      `"Y88b 
+                    8    Y     888   .8'     `888.  `88b    ooo   888  `88b.  `88b    d88' oo     .d8P 
+                    o8o        o888o o88o     o8888o  `Y8bood8P'  o888o  o888o  `Y8bood8P'  8""88888P'  
+
+*/
+
+#if defined MENU_INTERACTION_INCLUDED
+  #endinput
+#endif
+#define MENU_INTERACTION_INCLUDED
+
+
+#if defined _ALS_OnPlayerClickTextDraw
+  #undef OnPlayerClickTextDraw
+#else
+  #define _ALS_OnPlayerClickTextDraw
+#endif
+#define OnPlayerClickTextDraw HOOK_OnPlayerClickTextDraw
+#if defined HOOK_OnPlayerClickTextDraw
+  forward OnPlayerClickTextDraw(playerid, Text:clickedid);
+#endif
+
+#if defined _ALS_OnGameModeInit
+  #undef OnGameModeInit
+#else
+  #define _ALS_OnGameModeInit
+#endif
+#define OnGameModeInit HOOK_OnGameModeInit
+#if defined HOOK_OnGameModeInit
+  forward OnGameModeInit();
+#endif
