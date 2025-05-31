@@ -161,7 +161,7 @@ public HideMenu(playerid)
         CancelSelectTextDraw(playerid);
         for(new i; i < 8; i++)
         {
-            if(i < 5) PlayerTextDrawHide(playerid, MenuInteractionPl[playerid][i]);
+            if(i < 5) PlayerTextDrawDestroy(playerid, MenuInteractionPl[playerid][i]);
             TextDrawHideForPlayer(playerid, MenuInteraction[i]);
         }
     }
